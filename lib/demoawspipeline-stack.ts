@@ -10,7 +10,8 @@ export class DemoawspipelineStack extends cdk.Stack {
  //AWS CICD Pipeline 
  const democicdpipeline = new CodePipeline(this,'demopipeline',{
   synth: new ShellStep('Synth', {
-    input: CodePipelineSource.gitHub('richagroverr/democicdpipeline', 'main'),
+    input: CodePipelineSource.gitHub('richagroverr/democicdpipeline', 'main',{
+    authentication:cdk.SecretValue.secretsManager('github-token')}),
     commands: [
       'npm ci',
       'npm run build',
@@ -18,5 +19,5 @@ export class DemoawspipelineStack extends cdk.Stack {
     ],
   }),
  }) 
-  }
+}
 }
